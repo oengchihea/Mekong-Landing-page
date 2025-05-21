@@ -1,0 +1,6 @@
+# Add this content to .gitignore
+.env
+.env.local
+.env.development
+.env.production
+node_modules/
