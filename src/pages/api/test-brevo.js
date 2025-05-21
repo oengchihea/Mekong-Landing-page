@@ -7,15 +7,12 @@ export default async function handler(req, res) {
     const BREVO_API_KEY = process.env.BREVO_API_KEY
     const EMAIL_USER = process.env.EMAIL_USER
 
-    // Debug information
+    // Enhanced debugging information
     console.log("==== BREVO TEST DEBUGGING ====")
     console.log("EMAIL_USER exists:", !!EMAIL_USER)
-    console.log("EMAIL_USER value (first 3 chars):", EMAIL_USER ? EMAIL_USER.substring(0, 3) + "..." : "not set")
+    console.log("EMAIL_USER value:", EMAIL_USER || "not set")
     console.log("BREVO_API_KEY exists:", !!BREVO_API_KEY)
-    console.log(
-      "BREVO_API_KEY value (first 3 chars):",
-      BREVO_API_KEY ? BREVO_API_KEY.substring(0, 3) + "..." : "not set",
-    )
+    console.log("BREVO_API_KEY first 5 chars:", BREVO_API_KEY ? BREVO_API_KEY.substring(0, 5) + "..." : "not set")
 
     // Validate environment variables
     if (!BREVO_API_KEY) {
@@ -41,7 +38,7 @@ export default async function handler(req, res) {
     }
 
     console.log("Configuring Brevo API...")
-    // Configure API key authorization - FIXED INITIALIZATION
+    // Configure API key authorization
     const apiClient = SibApiV3Sdk.ApiClient.instance
     const apiKey = apiClient.authentications["api-key"]
     apiKey.apiKey = BREVO_API_KEY
@@ -60,6 +57,7 @@ export default async function handler(req, res) {
           <p>This is a test email from the MEKONG Restaurant reservation system using Brevo API.</p>
           <p>If you're seeing this, your email configuration is working correctly!</p>
           <p>Timestamp: ${new Date().toISOString()}</p>
+          <p>Environment: ${process.env.NODE_ENV || "unknown"}</p>
         </body>
       </html>
     `

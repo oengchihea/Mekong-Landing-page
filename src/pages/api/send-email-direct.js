@@ -5,13 +5,14 @@ export default async function handler(req, res) {
     return res.status(405).json({ success: false, message: "Method not allowed" })
   }
 
-  // Debug logging
+  // Enhanced debugging
   console.log("==== EMAIL DEBUGGING (DIRECT) ====")
-  console.log("EMAIL_USER:", process.env.EMAIL_USER)
+  console.log("EMAIL_USER exists:", !!process.env.EMAIL_USER)
+  console.log("EMAIL_USER value:", process.env.EMAIL_USER || "not set")
   console.log("BREVO_API_KEY exists:", !!process.env.BREVO_API_KEY)
   console.log(
-    "BREVO_API_KEY first 10 chars:",
-    process.env.BREVO_API_KEY ? process.env.BREVO_API_KEY.substring(0, 10) : "none",
+    "BREVO_API_KEY first 5 chars:",
+    process.env.BREVO_API_KEY ? process.env.BREVO_API_KEY.substring(0, 5) + "..." : "not set",
   )
 
   try {
@@ -25,22 +26,22 @@ export default async function handler(req, res) {
       })
     }
 
-    // If API key is not configured, use mock mode
-    if (!process.env.BREVO_API_KEY || !process.env.EMAIL_USER) {
-      console.log("MOCK MODE: Would send email with the following data:", {
-        name,
-        email,
-        phone,
-        date: date ? new Date(date).toLocaleDateString() : "Not specified",
-        time: time || "Not specified",
-        guests,
-        message: message || "None",
+    // Check for environment variables and provide clear error if missing
+    if (!process.env.BREVO_API_KEY) {
+      console.error("ERROR: BREVO_API_KEY environment variable is not set")
+      return res.status(500).json({
+        success: false,
+        message: "Server configuration error: Missing API key",
+        debug: "BREVO_API_KEY is not set in environment variables",
       })
+    }
 
-      return res.status(200).json({
-        success: true,
-        message:
-          "Thank you! Your reservation request has been received. We will contact you shortly to confirm. (MOCK MODE)",
+    if (!process.env.EMAIL_USER) {
+      console.error("ERROR: EMAIL_USER environment variable is not set")
+      return res.status(500).json({
+        success: false,
+        message: "Server configuration error: Missing email configuration",
+        debug: "EMAIL_USER is not set in environment variables",
       })
     }
 
@@ -194,13 +195,19 @@ export default async function handler(req, res) {
 
     console.log("Sending notification email to restaurant...")
     // Send notification to restaurant
-    await sendEmailDirect({
-      to: process.env.EMAIL_USER,
-      subject: `New Reservation Request from ${name}`,
-      html: htmlContent,
-      text: textContent,
-      senderName: "MEKONG Restaurant",
-    })
+    try {
+      await sendEmailDirect({
+        to: process.env.EMAIL_USER,
+        subject: `New Reservation Request from ${name}`,
+        html: htmlContent,
+        text: textContent,
+        senderName: "MEKONG Restaurant",
+      })
+      console.log("Restaurant notification email sent successfully")
+    } catch (notifyError) {
+      console.error("Failed to send notification email to restaurant:", notifyError)
+      // Continue to send confirmation email even if notification fails
+    }
 
     console.log("Sending confirmation email to customer...")
     // Send confirmation to customer
@@ -213,6 +220,7 @@ export default async function handler(req, res) {
         text: confirmationText,
         senderName: "MEKONG Restaurant",
       })
+      console.log("Customer confirmation email sent successfully")
     } catch (confirmError) {
       console.error("Error sending confirmation email:", confirmError)
       // Continue even if confirmation email fails
@@ -227,11 +235,11 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error("Error processing reservation:", error)
 
-    // Return error response
+    // Return error response with more details
     return res.status(500).json({
       success: false,
       message: "There was an error submitting your reservation. Please try again or call us directly.",
-      details: process.env.NODE_ENV === "development" ? error.message : undefined,
+      details: process.env.NODE_ENV === "development" ? error.message : "Server error",
     })
   }
 }
