@@ -1,12 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Important: This tells Next.js where to find your API routes
-  // if they're not in the standard location
+  // Note: The 'appDir' option has been removed as it's deprecated in Next.js 15
+  // API routes in /pages/api are automatically detected without any special configuration
   experimental: {
-    // This is needed if your API routes are in a non-standard location
-    // Remove this if you move your API routes to the standard location
-    appDir: false,
+    // You can add other experimental features here if needed
   },
   // Environment variables are loaded from .env.local
   eslint: {

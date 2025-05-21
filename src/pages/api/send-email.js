@@ -1,5 +1,5 @@
 // src/pages/api/send-email.js
-import SibApiV3Sdk from "@getbrevo/brevo"
+import * as SibApiV3Sdk from "@getbrevo/brevo"
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -29,30 +29,14 @@ export default async function handler(req, res) {
       })
     }
 
-    // Initialize Brevo API here (not outside the handler)
-    let apiInstance = null
-    try {
-      // Let's try a different approach based on the actual structure
-      if (typeof SibApiV3Sdk === "function") {
-        // If it's a constructor function
-        apiInstance = new SibApiV3Sdk()
-        apiInstance.authentications = apiInstance.authentications || {}
-        apiInstance.authentications["api-key"] = { apiKey: process.env.BREVO_API_KEY }
-        console.log("Brevo API configured successfully (constructor approach)")
-      } else if (typeof SibApiV3Sdk === "object") {
-        // If it's an object with methods
-        apiInstance = SibApiV3Sdk
-        apiInstance.apiKey = process.env.BREVO_API_KEY
-        console.log("Brevo API configured successfully (object approach)")
-      } else {
-        throw new Error(`Unexpected SibApiV3Sdk type: ${typeof SibApiV3Sdk}`)
-      }
-    } catch (error) {
-      console.error("Error configuring Brevo API:", error)
-    }
+    // Initialize Brevo API
+    const apiClient = SibApiV3Sdk.ApiClient.instance
+    const apiKey = apiClient.authentications["api-key"]
+    apiKey.apiKey = process.env.BREVO_API_KEY
+    const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
 
     // If Brevo API is not configured, use mock mode
-    if (!apiInstance || !process.env.BREVO_API_KEY || !process.env.EMAIL_USER) {
+    if (!process.env.BREVO_API_KEY || !process.env.EMAIL_USER) {
       console.log("MOCK MODE: Would send email with the following data:", {
         name,
         email,
@@ -82,29 +66,26 @@ export default async function handler(req, res) {
         console.log(`Preparing to send email to: ${options.to}`)
 
         // Create email data
-        const emailData = {
-          sender: { name: options.senderName || "MEKONG Restaurant", email: process.env.EMAIL_USER },
-          to: [{ email: options.to, name: options.toName || options.to }],
-          subject: options.subject,
-          htmlContent: options.html,
+        const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
+        sendSmtpEmail.sender = {
+          name: options.senderName || "MEKONG Restaurant",
+          email: process.env.EMAIL_USER,
         }
+        sendSmtpEmail.to = [
+          {
+            email: options.to,
+            name: options.toName || options.to,
+          },
+        ]
+        sendSmtpEmail.subject = options.subject
+        sendSmtpEmail.htmlContent = options.html
 
         if (options.text) {
-          emailData.textContent = options.text
+          sendSmtpEmail.textContent = options.text
         }
 
         console.log("Email configuration complete, sending now...")
-
-        // Use the appropriate method based on the API structure
-        let result
-        if (typeof apiInstance.sendTransacEmail === "function") {
-          result = await apiInstance.sendTransacEmail(emailData)
-        } else if (typeof apiInstance.send === "function") {
-          result = await apiInstance.send(emailData)
-        } else {
-          throw new Error("No suitable method found to send email")
-        }
-
+        const result = await apiInstance.sendTransacEmail(sendSmtpEmail)
         console.log("Email sent successfully:", JSON.stringify(result))
         return result
       } catch (error) {
