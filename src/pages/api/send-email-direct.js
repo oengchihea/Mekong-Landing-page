@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ success: false, message: "Method not allowed" })
   }
 
-  // Enhanced debugging
+  // Enhanced debugging - will show in Vercel logs
   console.log("==== EMAIL DEBUGGING (DIRECT) ====")
   console.log("EMAIL_USER exists:", !!process.env.EMAIL_USER)
   console.log("EMAIL_USER value:", process.env.EMAIL_USER || "not set")
@@ -14,12 +14,14 @@ export default async function handler(req, res) {
     "BREVO_API_KEY first 5 chars:",
     process.env.BREVO_API_KEY ? process.env.BREVO_API_KEY.substring(0, 5) + "..." : "not set",
   )
+  console.log("Request body:", JSON.stringify(req.body))
 
   try {
     const { name, email, phone, date, time, guests, message } = req.body
 
     // Validate required fields
     if (!name || !email || !phone) {
+      console.log("Missing required fields:", { name, email, phone })
       return res.status(400).json({
         success: false,
         message: "Please provide name, email, and phone number",
@@ -81,14 +83,21 @@ export default async function handler(req, res) {
           body: JSON.stringify(emailData),
         })
 
-        if (!response.ok) {
-          const errorData = await response.json()
-          throw new Error(`Brevo API error: ${response.status} - ${JSON.stringify(errorData)}`)
+        const responseText = await response.text()
+        let responseData
+        try {
+          responseData = JSON.parse(responseText)
+        } catch (e) {
+          responseData = { rawResponse: responseText }
         }
 
-        const result = await response.json()
-        console.log("Email sent successfully:", JSON.stringify(result))
-        return result
+        if (!response.ok) {
+          console.error("Brevo API error response:", responseData)
+          throw new Error(`Brevo API error: ${response.status} - ${JSON.stringify(responseData)}`)
+        }
+
+        console.log("Email sent successfully:", JSON.stringify(responseData))
+        return responseData
       } catch (error) {
         console.error("Error sending email with Brevo:", error)
         throw error

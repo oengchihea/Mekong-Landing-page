@@ -16,12 +16,14 @@ export default async function handler(req, res) {
     "BREVO_API_KEY first 5 chars:",
     process.env.BREVO_API_KEY ? process.env.BREVO_API_KEY.substring(0, 5) + "..." : "not set",
   )
+  console.log("Request body:", JSON.stringify(req.body))
 
   try {
     const { name, email, phone, date, time, guests, message } = req.body
 
     // Validate required fields
     if (!name || !email || !phone) {
+      console.log("Missing required fields:", { name, email, phone })
       return res.status(400).json({
         success: false,
         message: "Please provide name, email, and phone number",

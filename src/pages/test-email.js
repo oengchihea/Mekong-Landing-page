@@ -1,30 +1,43 @@
+// src/pages/test-email.js
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Head from "next/head"
+import { testEmailConfig } from "../lib/contact"
 
 export default function TestEmail() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
+  const [envVars, setEnvVars] = useState({
+    hasBrevoApiKey: false,
+    hasEmailUser: false,
+    emailUser: null,
+  })
 
-  const testEmailConfig = async () => {
+  // Check environment variables on the server side
+  useEffect(() => {
+    async function checkEnvVars() {
+      try {
+        const response = await fetch("/api/check-env")
+        const data = await response.json()
+        setEnvVars(data)
+      } catch (err) {
+        console.error("Failed to check environment variables:", err)
+      }
+    }
+
+    checkEnvVars()
+  }, [])
+
+  const handleTestEmail = async () => {
     setLoading(true)
     setResult(null)
     setError(null)
 
     try {
-      const response = await fetch("/api/test-brevo", {
-        method: "GET",
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        setResult(data)
-      } else {
-        setError(data)
-      }
+      const data = await testEmailConfig()
+      setResult(data)
     } catch (err) {
       setError({ message: err.message })
     } finally {
@@ -49,7 +62,7 @@ export default function TestEmail() {
         </p>
 
         <button
-          onClick={testEmailConfig}
+          onClick={handleTestEmail}
           disabled={loading}
           style={{
             backgroundColor: "#e67e22",
@@ -94,6 +107,31 @@ export default function TestEmail() {
             </div>
           </div>
         )}
+
+        <div style={{ marginTop: "30px", borderTop: "1px solid #e0e0e0", paddingTop: "20px" }}>
+          <h3>Environment Variables Status:</h3>
+          <p>This information is only visible to administrators and helps diagnose configuration issues.</p>
+          <ul>
+            <li>
+              <strong>BREVO_API_KEY:</strong> {envVars.hasBrevoApiKey ? "✅ Set" : "❌ Not set"}
+              <br />
+              <small>
+                {envVars.hasBrevoApiKey
+                  ? "The API key is configured. If emails are not sending, the key might be invalid."
+                  : "The API key is not configured. Add it to your Vercel environment variables."}
+              </small>
+            </li>
+            <li>
+              <strong>EMAIL_USER:</strong> {envVars.hasEmailUser ? "✅ Set" : "❌ Not set"}
+              <br />
+              <small>
+                {envVars.hasEmailUser
+                  ? `Email is configured as: ${envVars.emailUser}`
+                  : "The email address is not configured. Add it to your Vercel environment variables."}
+              </small>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   )
