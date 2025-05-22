@@ -1,9 +1,27 @@
+"use client"
+
 // src/components/sections/Menu.jsx
-// Remove "use client" directive and CSS import
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState("starters")
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+
+    // Initial check
+    checkMobile()
+
+    // Add event listener for window resize
+    window.addEventListener("resize", checkMobile)
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   const menuCategories = [
     { id: "starters", name: "Starters" },
@@ -85,6 +103,22 @@ const Menu = () => {
 
   return (
     <section id="menu" className="menu-section">
+      {/* Background Video */}
+      <div className="menu-background-video">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="video-element"
+          poster="/images/menu-poster.jpg" // Fallback image while video loads
+        >
+          <source src="/video/menu.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="video-overlay"></div>
+      </div>
+
       <div className="menu-container">
         <div className="section-header text-center">
           <span className="subtitle animate-on-scroll fade-up">Culinary Delights</span>
@@ -100,6 +134,7 @@ const Menu = () => {
               key={category.id}
               className={`menu-category-btn ${activeCategory === category.id ? "active" : ""}`}
               onClick={() => setActiveCategory(category.id)}
+              aria-label={`View ${category.name}`}
             >
               {category.name}
             </button>

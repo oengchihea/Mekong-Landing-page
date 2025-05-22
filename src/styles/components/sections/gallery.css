@@ -1,13 +1,17 @@
 /* Gallery section styles */
 .gallery-section {
   padding: 5rem 0;
-  background-color: #f9f9f9;
+  background-color: #1a1a1a; /* Dark background as fallback */
+  color: #fff;
+  position: relative;
 }
 
 .gallery-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
 }
 
 .section-header {
@@ -24,8 +28,21 @@
 
 .section-header h2 {
   font-size: 2.5rem;
-  color: #333;
+  color: #fff;
   margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.section-header h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #e67e22;
 }
 
 /* Gallery filters */
@@ -39,10 +56,10 @@
 
 .filter-btn {
   padding: 0.6rem 1.5rem;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.1);
   border: 2px solid #e67e22;
   border-radius: 50px;
-  color: #333;
+  color: #e67e22;
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
@@ -53,6 +70,7 @@
 .filter-btn:hover {
   background-color: #e67e22;
   color: white;
+  box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
 }
 
 .filter-count {
@@ -74,10 +92,11 @@
   overflow: hidden;
   height: 250px;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .gallery-item.visible {
@@ -86,7 +105,7 @@
 }
 
 .gallery-item:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   transform: translateY(-5px);
 }
 
@@ -128,6 +147,7 @@
 .overlay-content i {
   font-size: 2rem;
   margin-bottom: 0.75rem;
+  color: #e67e22;
 }
 
 .overlay-content p {

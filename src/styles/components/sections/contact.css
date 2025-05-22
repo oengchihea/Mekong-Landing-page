@@ -1,128 +1,405 @@
-    /* Contact section styles */
+/* Contact section styles */
 .contact-section {
-    padding: 5rem 0;
-    background-color: #f9f9f9;
-  }
-  
-  .contact-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-  
+  padding: 5rem 0;
+  background-color: #1a1a1a; /* Dark background as fallback */
+  color: #fff;
+  position: relative;
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+}
+
+.section-header .subtitle {
+  display: block;
+  color: #e67e22;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.section-header h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #e67e22;
+}
+
+.contact-info p {
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contact-item i {
+  font-size: 1.2rem;
+  color: #e67e22;
+  margin-top: 0.25rem;
+}
+
+.contact-item h4 {
+  font-size: 1.1rem;
+  margin: 0 0 0.25rem;
+  color: #fff;
+}
+
+.contact-item p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-form-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 2.5rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Enhanced form input styling with validation states */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Validation states */
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+  border-color: #e74c3c;
+  background-color: rgba(231, 76, 60, 0.1);
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-group input.success,
+.form-group select.success,
+.form-group textarea.success {
+  border-color: #2ecc71;
+  background-color: rgba(46, 204, 113, 0.1);
+  box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Error and success messages */
+.error-message {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.error-message::before {
+  content: "⚠";
+  font-size: 0.9rem;
+}
+
+.success-message-inline {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #2ecc71;
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.form-group.has-error .success-message-inline {
+  display: none;
+}
+
+/* Form help text */
+.form-help {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+/* Special styling for date and time inputs */
+.form-group input[type="date"],
+.form-group input[type="time"] {
+  color: rgba(255, 255, 255, 0.9);
+  padding-right: 0.5rem;
+}
+
+/* Styling for the dropdown */
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e67e22%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem top 50%;
+  background-size: 0.65rem auto;
+  padding-right: 2rem;
+}
+
+/* Style for placeholder text */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Style for dropdown options */
+.form-group select option {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #e67e22;
+  box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.3), inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Override focus styles for error and success states */
+.form-group input.error:focus,
+.form-group select.error:focus,
+.form-group textarea.error:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.3), inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-group input.success:focus,
+.form-group select.success:focus,
+.form-group textarea.success:focus {
+  border-color: #2ecc71;
+  box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.3), inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover state */
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Fix for WebKit browsers (Chrome, Safari) */
+.form-group input[type="date"]::-webkit-calendar-picker-indicator,
+.form-group input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(0.8) sepia(100%) saturate(500%) hue-rotate(350deg);
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.form-message {
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.form-message.success {
+  background-color: rgba(39, 174, 96, 0.2);
+  color: #2ecc71;
+  border: 1px solid rgba(39, 174, 96, 0.3);
+}
+
+.form-message.error {
+  background-color: rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.form-message.info {
+  background-color: rgba(52, 152, 219, 0.2);
+  color: #3498db;
+  border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.btn {
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #e67e22;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover:not(.disabled) {
+  background-color: #d35400;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary.disabled {
+  background-color: rgba(230, 126, 34, 0.5);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.form-disclaimer {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  margin-top: 1rem;
+  line-height: 1.4;
+}
+
+.success-message {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.success-icon {
+  font-size: 3rem;
+  color: #2ecc71;
+  margin-bottom: 1rem;
+}
+
+.success-message h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.success-message p {
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
   .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
-  
-  .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+
+  .section-header h2::after {
+    left: 50%;
+    transform: translateX(-50%);
   }
-  
-  .contact-info p {
-    line-height: 1.7;
-    color: #666;
-    margin-bottom: 2rem;
+
+  .section-header {
+    text-align: center;
   }
-  
-  .contact-details {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .section-header h2 {
+    font-size: 2rem;
   }
-  
-  .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-  
-  .contact-item i {
-    font-size: 1.2rem;
-    color: #e67e22;
-    margin-top: 0.25rem;
-  }
-  
-  .contact-item h4 {
-    font-size: 1.1rem;
-    margin: 0 0 0.25rem;
-  }
-  
-  .contact-item p {
-    margin: 0;
-    color: #666;
-  }
-  
+
   .contact-form-container {
-    background-color: white;
-    border-radius: 8px;
-    padding: 2.5rem;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
   }
-  
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
+
   .form-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
+    grid-template-columns: 1fr;
   }
-  
-  .form-group label {
-    font-weight: 600;
-    font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+  .contact-form-container {
+    padding: 1.25rem;
   }
-  
+
   .form-group input,
   .form-group select,
   .form-group textarea {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-family: inherit;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    padding: 0.7rem;
   }
-  
-  .form-group textarea {
-    resize: vertical;
-    min-height: 100px;
+
+  .success-message-inline {
+    right: 0.7rem;
   }
-  
-  .form-message {
-    padding: 1rem;
-    border-radius: 4px;
-    margin-top: 1rem;
-    text-align: center;
-  }
-  
-  .form-message.success {
-    background-color: rgba(39, 174, 96, 0.1);
-    color: #27ae60;
-  }
-  
-  .form-message.error {
-    background-color: rgba(231, 76, 60, 0.1);
-    color: #e74c3c;
-  }
-  
-  @media (max-width: 992px) {
-    .contact-content {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-  }
-  
+}

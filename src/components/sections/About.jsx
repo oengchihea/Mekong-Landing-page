@@ -1,9 +1,46 @@
-// src/components/sections/About.jsx
-// Remove CSS import
+"use client"
+
+import { useEffect, useState } from "react"
 
 const About = () => {
+  const [isMobile, setIsMobile] = useState(false)
+  const [isLandscape, setIsLandscape] = useState(false)
+
+  // Check device orientation and size
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth <= 768)
+      setIsLandscape(window.innerHeight <= 500 && window.innerWidth > window.innerHeight)
+    }
+
+    // Initial check
+    checkDevice()
+
+    // Add event listener for window resize
+    window.addEventListener("resize", checkDevice)
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkDevice)
+  }, [])
+
   return (
     <section id="about" className="about-section">
+      {/* Background Video */}
+      <div className="about-background-video">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="video-element"
+          poster="/images/about-poster.jpg" // Fallback image while video loads
+        >
+          <source src="/video/food.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="video-overlay"></div>
+      </div>
+
       <div className="about-container">
         <div className="about-content">
           <div className="section-header">
@@ -65,11 +102,22 @@ const About = () => {
 
         <div className="about-images-container animate-on-scroll slide-in-right">
           <div className="about-image primary-image">
-            <img src="/images/guide.jpg" alt="Mekong Cooking Demonstration" />
+            <img
+              src="/images/guide.jpg"
+              alt="Mekong Cooking Demonstration"
+              loading="lazy" // Add lazy loading for images
+            />
           </div>
-          <div className="about-image secondary-image animate-on-scroll fade-in delay-300">
-            <img src="/images/place.jpg" alt="Mekong Restaurant Interior" />
-          </div>
+          {/* Only show secondary image if not in landscape mode on mobile */}
+          {!isLandscape && (
+            <div className="about-image secondary-image animate-on-scroll fade-in delay-300">
+              <img
+                src="/images/place.jpg"
+                alt="Mekong Restaurant Interior"
+                loading="lazy" // Add lazy loading for images
+              />
+            </div>
+          )}
         </div>
       </div>
     </section>

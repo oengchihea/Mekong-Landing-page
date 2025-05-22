@@ -5,9 +5,10 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  padding: 1rem 0;
+  padding: 0.8rem 0;
   transition: all 0.3s ease;
-  background-color: rgba(0, 0, 0, 0.8); /* Darker background */
+  background-color: rgba(0, 0, 0, 0.85); /* Darker background */
+  font-family: "Poppins", sans-serif; /* Ensure Poppins is used */
 }
 
 .site-header.scrolled {
@@ -23,9 +24,88 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  width: 100%;
 }
 
+/* Logo styles */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo frame styles */
+.logo-frame {
+  width: 70px; /* Smaller logo in header */
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e67e22, #d35400);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.logo-frame::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+.logo-frame::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 65%);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo-frame:hover::after {
+  opacity: 1;
+}
+
+.logo-frame:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.logo-frame-scrolled {
+  width: 60px;
+  height: 60px;
+  transform: scale(0.95);
+}
+
+.logo-image {
+  border-radius: 50%;
+  z-index: 3;
+  transition: all 0.3s ease;
+  width: 66px !important;
+  height: 66px !important;
+  object-fit: contain !important;
+  background-color: #fff;
+}
+
+.logo-frame-scrolled .logo-image {
+  width: 56px !important;
+  height: 56px !important;
+}
+
+/* Original logo text styles preserved for reference */
 .logo h1 {
+  font-family: "Poppins", sans-serif;
   font-size: 2rem;
   font-weight: 700;
   color: #e67e22; /* Orange brand color */
@@ -45,6 +125,7 @@
 }
 
 .main-nav a {
+  font-family: "Poppins", sans-serif;
   color: #ffffff; /* White text for better contrast */
   text-decoration: none;
   font-weight: 500;
@@ -91,6 +172,7 @@
 }
 
 .header-cta .btn {
+  font-family: "Poppins", sans-serif;
   padding: 0.6rem 1.5rem;
   background-color: #e67e22;
   color: white;

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false)
@@ -81,7 +82,16 @@ const Header = () => {
     <header className={`site-header ${scrolled ? "scrolled" : ""}`}>
       <div className="header-container">
         <div className="logo">
-          <h1>Mekong</h1>
+          <div className={`logo-frame ${scrolled ? "logo-frame-scrolled" : ""}`}>
+            <Image
+              src="/images/mekong-tonle.png"
+              alt="Mekong Tonle Restaurant"
+              width={86}
+              height={86}
+              className="logo-image"
+              priority
+            />
+          </div>
         </div>
 
         <div className={`mobile-menu-toggle ${mobileMenuOpen ? "open" : ""}`} onClick={toggleMobileMenu}>
