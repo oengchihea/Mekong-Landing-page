@@ -1,7 +1,7 @@
 "use client"
 
-// src/components/sections/Contact.jsx
 import { useState, useEffect } from "react"
+import { submitReservation } from "../../lib/contact" // Updated import path
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +19,7 @@ const Contact = () => {
     success: false,
     message: "",
     isSubmitting: false,
+    confirmationCode: "",
   })
 
   const [validationErrors, setValidationErrors] = useState({})
@@ -217,21 +218,25 @@ const Contact = () => {
       isSubmitting: true,
       message: "Sending your reservation request...",
       submitted: true,
-      success: true,
+      success: false,
     }))
 
     try {
       // Log the data being sent
       console.log("Submitting form data:", formData)
 
-      // Simulate API call for demo
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      // Call the API to submit the reservation
+      const response = await submitReservation(formData)
 
+      // Handle successful submission
       setFormStatus({
         submitted: true,
         success: true,
-        message: "Your reservation request has been sent successfully! We'll confirm your booking within 30 minutes.",
+        message:
+          response.message ||
+          "Your reservation request has been sent successfully! We'll confirm your booking within 30 minutes.",
         isSubmitting: false,
+        confirmationCode: response.confirmationCode || "",
       })
 
       // Reset form after successful submission
@@ -248,22 +253,13 @@ const Contact = () => {
       // Clear validation errors and touched fields
       setValidationErrors({})
       setTouchedFields({})
-
-      // Reset status after 5 seconds
-      setTimeout(() => {
-        setFormStatus({
-          submitted: false,
-          success: false,
-          message: "",
-          isSubmitting: false,
-        })
-      }, 5000)
     } catch (error) {
       console.error("Error submitting form:", error)
       setFormStatus({
         submitted: true,
         success: false,
-        message: "There was an error submitting your reservation. Please try again or call us directly.",
+        message:
+          error.message || "There was an error submitting your reservation. Please try again or call us directly.",
         isSubmitting: false,
       })
     }
@@ -288,12 +284,13 @@ const Contact = () => {
 
   // Check if form is valid
   const isFormValid =
-    Object.keys(validationErrors).length === 0 &&
     formData.name &&
     formData.email &&
     formData.phone &&
     formData.date &&
-    formData.time
+    formData.time &&
+    formData.guests &&
+    Object.keys(validationErrors).length === 0
 
   return (
     <section id="reservation" className="contact-section">
@@ -359,10 +356,21 @@ const Contact = () => {
                   {Number.parseInt(formData.guests) === 1 ? "person" : "people"} on {formatDate(formData.date)} at{" "}
                   {formatTime(formData.time)}. We'll confirm your reservation within 30 minutes.
                 </p>
+                {formStatus.confirmationCode && (
+                  <p className="confirmation-code">
+                    Your confirmation code: <strong>{formStatus.confirmationCode}</strong>
+                  </p>
+                )}
                 <button
                   className="btn btn-primary"
                   onClick={() => {
-                    setFormStatus({ submitted: false, success: false, message: "", isSubmitting: false })
+                    setFormStatus({
+                      submitted: false,
+                      success: false,
+                      message: "",
+                      isSubmitting: false,
+                      confirmationCode: "",
+                    })
                     setValidationErrors({})
                     setTouchedFields({})
                   }}
@@ -563,8 +571,8 @@ const Contact = () => {
 
                 <button
                   type="submit"
-                  className={`btn btn-primary btn-block ${!isFormValid ? "disabled" : ""}`}
-                  disabled={formStatus.isSubmitting || !isFormValid}
+                  className={`btn btn-primary btn-block ${formStatus.isSubmitting ? "disabled" : ""}`}
+                  disabled={formStatus.isSubmitting}
                 >
                   {formStatus.isSubmitting ? (
                     <span>

@@ -4,9 +4,10 @@
   position: relative;
   overflow: hidden;
   color: #fff; /* White text for better visibility on dark background */
+  min-height: 100vh; /* Ensure section has enough height */
 }
 
-/* Background Video Styles */
+/* Background Video Styles - Updated for visibility */
 .about-background-video {
   position: absolute;
   top: 0;
@@ -25,9 +26,11 @@
   min-height: 100%;
   width: auto;
   height: auto;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%) translateZ(0); /* Force hardware acceleration */
   object-fit: cover;
   z-index: 0;
+  opacity: 1 !important; /* Force opacity */
+  visibility: visible !important; /* Force visibility */
 }
 
 .video-overlay {

@@ -1,4 +1,4 @@
-// src/lib/contact.js
+// lib/contact.js
 export async function submitReservation(formData) {
   try {
     console.log("Submitting reservation with data:", formData)
