@@ -203,6 +203,20 @@
 }
 
 /* Enhanced Mobile Responsiveness */
+@media (max-width: 1200px) {
+  .section-header h2 {
+    font-size: 2.3rem;
+  }
+  
+  .menu-section {
+    padding: 4.5rem 0;
+  }
+  
+  .menu-items {
+    gap: 1.75rem;
+  }
+}
+
 @media (max-width: 992px) {
   .section-header h2 {
     font-size: 2.2rem;
@@ -211,6 +225,18 @@
   .menu-categories {
     gap: 0.75rem;
     margin-bottom: 2.5rem;
+  }
+  
+  .menu-section {
+    padding: 4rem 0;
+  }
+  
+  .menu-items {
+    gap: 1.5rem;
+  }
+  
+  .menu-item {
+    padding: 1.25rem;
   }
 }
 
@@ -299,6 +325,36 @@
   }
 }
 
+@media (max-width: 576px) {
+  .menu-section {
+    padding: 3.5rem 0;
+  }
+  
+  .section-header h2 {
+    font-size: 1.7rem;
+  }
+  
+  .section-header h2::after {
+    width: 70px;
+  }
+  
+  .menu-item {
+    padding: 1.1rem;
+  }
+  
+  .menu-item-name {
+    font-size: 1.05rem;
+  }
+  
+  .menu-item-price {
+    font-size: 1.05rem;
+  }
+  
+  .menu-item-description {
+    font-size: 0.85rem;
+  }
+}
+
 @media (max-width: 480px) {
   .menu-section {
     padding: 3rem 0;
@@ -330,6 +386,34 @@
   }
 }
 
+@media (max-width: 375px) {
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .menu-item {
+    padding: 0.9rem;
+  }
+  
+  .menu-item-name {
+    font-size: 1rem;
+  }
+  
+  .menu-item-price {
+    font-size: 1rem;
+  }
+  
+  .menu-item-description {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  
+  .menu-cta .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
 /* Handle landscape orientation on mobile */
 @media (max-height: 500px) and (orientation: landscape) {
   .menu-section {
@@ -353,5 +437,25 @@
   .section-header h2 {
     font-size: 1.8rem;
     padding-bottom: 0.75rem;
+  }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (hover: none) {
+  .menu-category-btn {
+    /* Increase touch target size */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .menu-cta .btn {
+    min-height: 44px;
+  }
+  
+  /* Reduce hover effects for better performance */
+  .menu-item:hover {
+    transform: translateY(-3px);
   }
 }

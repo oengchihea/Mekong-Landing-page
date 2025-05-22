@@ -294,6 +294,16 @@
 }
 
 /* Enhanced Mobile Responsiveness */
+@media (max-width: 1200px) {
+  .hero-title-main {
+    font-size: 3rem;
+  }
+
+  .hero-title-highlight {
+    font-size: 3.2rem;
+  }
+}
+
 @media (max-width: 992px) {
   .hero-title-main {
     font-size: 2.8rem;
@@ -359,9 +369,10 @@
     flex-direction: column;
     gap: 0.75rem;
     margin-bottom: 2rem; /* Less space on mobile */
+    width: 90%; /* Slightly narrower on mobile */
   }
 
-  .hero-buttons-mobile .btn {
+  .hero-buttons .btn {
     width: 100%;
     padding: 0.7rem 1.5rem;
     font-size: 0.95rem;
@@ -409,6 +420,24 @@
   }
 }
 
+@media (max-width: 576px) {
+  .hero-section {
+    min-height: 520px;
+  }
+
+  .hero-title-main {
+    font-size: 2.3rem;
+  }
+
+  .hero-title-highlight {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.4rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-section {
     min-height: 500px;
@@ -439,6 +468,34 @@
   .hero-logo-image {
     width: 106px !important;
     height: 106px !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .hero-section {
+    min-height: 480px;
+  }
+
+  .hero-title-main {
+    font-size: 1.9rem;
+  }
+
+  .hero-title-highlight {
+    font-size: 2.1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .hero-logo-frame {
+    width: 100px;
+    height: 100px;
+  }
+
+  .hero-logo-image {
+    width: 96px !important;
+    height: 96px !important;
   }
 }
 
@@ -544,5 +601,30 @@
     100% {
       width: 70px;
     }
+  }
+}
+
+/* Handle very small devices */
+@media (max-width: 320px) {
+  .hero-title-main {
+    font-size: 1.8rem;
+  }
+
+  .hero-title-highlight {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .hero-logo-frame {
+    width: 90px;
+    height: 90px;
+  }
+
+  .hero-logo-image {
+    width: 86px !important;
+    height: 86px !important;
   }
 }

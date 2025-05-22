@@ -1,71 +1,182 @@
 /* Home page specific styles */
 .home-container {
-    width: 100%;
-    overflow-x: hidden;
-  }
-  
-  main {
-    min-height: 100vh;
-  }
-  
+  width: 100%;
+  overflow-x: hidden;
+}
+
+main {
+  min-height: 100vh;
+}
+
+.section-header {
+  margin-bottom: 3rem;
+}
+
+.section-header .subtitle {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #e67e22;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #e67e22;
+  color: white;
+  border: 2px solid #e67e22;
+}
+
+.btn-primary:hover {
+  background-color: #d35400;
+  border-color: #d35400;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #e67e22;
+  border: 2px solid #e67e22;
+}
+
+.btn-secondary:hover {
+  background-color: #e67e22;
+  color: white;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 1200px) {
   .section-header {
-    margin-bottom: 3rem;
-  }
-  
-  .section-header .subtitle {
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #e67e22;
-    display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2.5rem;
   }
   
   .section-header h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .section-header {
+    margin-bottom: 2.25rem;
   }
   
-  .text-center {
-    text-align: center;
+  .section-header h2 {
+    font-size: 2.1rem;
+  }
+  
+  .section-header .subtitle {
+    font-size: 0.95rem;
+    letter-spacing: 1.8px;
   }
   
   .btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    padding: 0.7rem 1.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    margin-bottom: 2rem;
   }
   
-  .btn-primary {
-    background-color: #e67e22;
-    color: white;
-    border: 2px solid #e67e22;
+  .section-header h2 {
+    font-size: 1.9rem;
   }
   
-  .btn-primary:hover {
-    background-color: #d35400;
-    border-color: #d35400;
+  .section-header .subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
   }
   
-  .btn-secondary {
-    background-color: transparent;
-    color: #e67e22;
-    border: 2px solid #e67e22;
+  .btn {
+    padding: 0.65rem 1.3rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .section-header {
+    margin-bottom: 1.75rem;
   }
   
-  .btn-secondary:hover {
-    background-color: #e67e22;
-    color: white;
+  .section-header h2 {
+    font-size: 1.7rem;
   }
   
-  .btn-block {
-    display: block;
-    width: 100%;
+  .section-header .subtitle {
+    font-size: 0.85rem;
+    letter-spacing: 1.2px;
   }
   
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.6rem;
+  }
+  
+  .section-header .subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+  
+  .btn {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (hover: none) {
+  .btn {
+    /* Increase touch target size */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

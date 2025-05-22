@@ -115,3 +115,100 @@ img {
 .delay-800 {
   transition-delay: 0.8s;
 }
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+}
+
+@media (max-width: 992px) {
+  body {
+    font-size: 0.95rem;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  /* Reduce animation distance on medium screens */
+  .fade-up, .fade-down {
+    transform: translateY(20px);
+  }
+  
+  .slide-in-left, .slide-in-right {
+    transform: translateX(30px);
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 0.9rem;
+  }
+  
+  /* Reduce animation distance on small screens */
+  .fade-up, .fade-down {
+    transform: translateY(15px);
+  }
+  
+  .slide-in-left, .slide-in-right {
+    transform: translateX(20px);
+  }
+}
+
+@media (max-width: 576px) {
+  body {
+    font-size: 0.85rem;
+  }
+  
+  .container {
+    padding: 0 0.9rem;
+  }
+  
+  /* Further reduce animation distance on smaller screens */
+  .fade-up, .fade-down {
+    transform: translateY(10px);
+  }
+  
+  .slide-in-left, .slide-in-right {
+    transform: translateX(15px);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.8rem;
+  }
+}
+
+/* Reduce animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll {
+    transition: none;
+  }
+  
+  .animate-on-scroll.animated {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .fade-up, .fade-down, .fade-in, .slide-in-left, .slide-in-right {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) {
+  a, button, .btn, [role="button"] {
+    /* Increase touch target size */
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Reduce hover effects for better performance */
+  .animate-on-scroll {
+    transition-duration: 0.4s;
+  }
+}

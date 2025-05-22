@@ -401,6 +401,20 @@
 }
 
 /* Responsive styles */
+@media (max-width: 1200px) {
+  .section-header h2 {
+    font-size: 2.3rem;
+  }
+  
+  .contact-section {
+    padding: 4.5rem 0;
+  }
+  
+  .contact-content {
+    gap: 3rem;
+  }
+}
+
 @media (max-width: 992px) {
   .contact-content {
     grid-template-columns: 1fr;
@@ -415,6 +429,19 @@
   .section-header {
     text-align: center;
   }
+  
+  .contact-info p {
+    text-align: center;
+  }
+  
+  .contact-details {
+    align-items: center;
+  }
+  
+  .contact-item {
+    width: 100%;
+    max-width: 400px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -428,6 +455,42 @@
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+  
+  .contact-section {
+    padding: 4rem 0;
+  }
+  
+  .contact-item {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .section-header h2::after {
+    width: 60px;
+  }
+  
+  .contact-form-container {
+    padding: 1.25rem;
+  }
+  
+  .form-group label {
+    font-size: 0.85rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 0.95rem;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.5rem;
   }
 }
 
@@ -445,5 +508,87 @@
 
   .success-message-inline {
     right: 0.7rem;
+  }
+  
+  .contact-section {
+    padding: 3rem 0;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .contact-item i {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 375px) {
+  .section-header h2 {
+    font-size: 1.6rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 0.9rem;
+    padding: 0.65rem;
+  }
+  
+  .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Handle landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .contact-section {
+    padding: 2rem 0;
+  }
+  
+  .contact-content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .contact-info {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .contact-form-container {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .section-header {
+    margin-bottom: 1rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.8rem;
+    padding-bottom: 0.75rem;
+  }
+  
+  .contact-info p {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (hover: none) {
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    /* Increase touch target size */
+    min-height: 44px;
+  }
+  
+  .btn {
+    min-height: 44px;
   }
 }
