@@ -1,187 +1,173 @@
-// src/components/sections/Gallery.jsx
-// Remove "use client" directive and CSS import
+"use client"
+
 import { useState, useEffect } from "react"
 
 const Gallery = () => {
-  // Define all gallery images in a single array
-  const galleryImages = [
+  // Featured gallery items with detailed information
+  const galleryItems = [
     {
       id: 1,
-      src: "/images/signature.jpg",
-      alt: "Signature Dish",
+      title: "SIGNATURE DISHES",
+      description:
+        "Discover our most celebrated dishes that showcase the authentic flavors of Cambodia. Each dish is carefully crafted using traditional techniques passed down through generations, combined with modern presentation to create an unforgettable dining experience.",
+      location: "SIEM REAP",
+      established: "SINCE 2010",
+      number: "01",
+      mainImage: "/images/signature.jpg",
       category: "food",
+      images: ["/images/signature.jpg", "/images/season.jpg", "/images/dessert.jpg", "/images/food.jpg"],
     },
     {
       id: 2,
-      src: "/images/tonle_mekong.jpg",
-      alt: "Restaurant Interior",
+      title: "AUTHENTIC AMBIANCE",
+      description:
+        "Step into our thoughtfully designed space that blends traditional Cambodian architecture with contemporary comfort. Every corner tells a story of our heritage while providing the perfect setting for memorable dining experiences.",
+      location: "CAMBODIA",
+      established: "HERITAGE",
+      number: "02",
+      mainImage: "/images/tonle_mekong.jpg",
       category: "interior",
+      images: ["/images/tonle_mekong.jpg", "/images/private.jpg", "/images/setup.jpg"],
     },
     {
       id: 3,
-      src: "/images/season.jpg",
-      alt: "Seasonal Special",
-      category: "food",
-    },
-    {
-      id: 4,
-      src: "/images/chef.jpg",
-      alt: "Chef in Action",
+      title: "CHEF'S MASTERY",
+      description:
+        "Meet our talented culinary team who bring passion and expertise to every dish. With years of experience in traditional Cambodian cuisine, our chefs create innovative interpretations of classic recipes.",
+      location: "KITCHEN",
+      established: "DAILY",
+      number: "03",
+      mainImage: "/images/chef.jpg",
       category: "chef",
-    },
-    {
-      id: 5,
-      src: "/images/dessert.jpg",
-      alt: "Dessert Platter",
-      category: "food",
-    },
-    {
-      id: 6,
-      src: "/images/private.jpg",
-      alt: "Private Dining Room",
-      category: "interior",
-    },
-    {
-      id: 7,
-      src: "/images/food.jpg",
-      alt: "Gourmet Specialty",
-      category: "food",
-    },
-    // New images
-    {
-      id: 8,
-      src: "/images/seafood.jpg",
-      alt: "Gourmet Appetizers",
-      category: "food",
-    },
-    {
-      id: 9,
-      src: "/images/setup.jpg",
-      alt: "Banquet Setup",
-      category: "interior",
+      images: ["/images/chef.jpg", "/images/seafood.jpg"],
     },
   ]
 
-  // State for active filter and lightbox
-  const [activeFilter, setActiveFilter] = useState("all")
+  const [activeItem, setActiveItem] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentImage, setCurrentImage] = useState(null)
-  const [currentIndex, setCurrentIndex] = useState(0)
 
-  // Filter categories
-  const filters = [
-    { id: "all", name: "All" },
-    { id: "food", name: "Food" },
-    { id: "interior", name: "Interior" },
-    { id: "chef", name: "Chef" },
-  ]
+  const currentGallery = galleryItems[activeItem]
 
-  // Get filtered images based on active filter
-  const getFilteredImages = () => {
-    if (activeFilter === "all") {
-      return galleryImages
-    }
-    return galleryImages.filter((image) => image.category === activeFilter)
-  }
-
-  // Current filtered images
-  const filteredImages = getFilteredImages()
-
-  // Handle filter button click
-  const handleFilterClick = (filterId) => {
-    setActiveFilter(filterId)
+  // Handle gallery navigation
+  const handleGalleryChange = (index) => {
+    setActiveItem(index)
   }
 
   // Lightbox handlers
-  const openLightbox = (image) => {
-    const index = filteredImages.findIndex((img) => img.id === image.id)
-    setCurrentImage(image)
-    setCurrentIndex(index)
+  const openLightbox = (imageSrc) => {
+    setCurrentImage(imageSrc)
     setLightboxOpen(true)
     document.body.classList.add("no-scroll")
   }
 
   const closeLightbox = () => {
     setLightboxOpen(false)
+    setCurrentImage(null)
     document.body.classList.remove("no-scroll")
   }
 
-  const navigateLightbox = (direction) => {
-    const newIndex = (currentIndex + direction + filteredImages.length) % filteredImages.length
-    setCurrentIndex(newIndex)
-    setCurrentImage(filteredImages[newIndex])
-  }
-
-  // Initialize animations when component mounts or filter changes
+  // Initialize animations
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (typeof window !== "undefined") {
-        const items = document.querySelectorAll(".gallery-item")
-        items.forEach((item, index) => {
-          setTimeout(() => {
-            item.classList.add("visible")
-          }, index * 50)
-        })
-      }
-    }, 100)
+      const elements = document.querySelectorAll(".gallery-animate")
+      elements.forEach((el, index) => {
+        setTimeout(() => {
+          el.classList.add("visible")
+        }, index * 100)
+      })
+    }, 200)
 
     return () => clearTimeout(timer)
-  }, [activeFilter])
-
-  // Count images in each category
-  const getCategoryCount = (categoryId) => {
-    if (categoryId === "all") return galleryImages.length
-    return galleryImages.filter((img) => img.category === categoryId).length
-  }
+  }, [activeItem])
 
   return (
     <section id="gallery" className="gallery-section">
       <div className="gallery-container">
-        <div className="section-header text-center">
-          <span className="subtitle">Visual Journey</span>
-          <h2>Our Gallery</h2>
+        {/* Gallery Header */}
+        <div className="gallery-header gallery-animate">
+          <h2 className="gallery-title">
+            OUR
+            <br />
+            <span className="gallery-title-accent">GALLERY</span>
+          </h2>
         </div>
 
-        <div className="gallery-filters">
-          {filters.map((filter) => (
+        {/* Gallery Navigation */}
+        <div className="gallery-navigation gallery-animate">
+          {galleryItems.map((item, index) => (
             <button
-              key={filter.id}
-              className={`filter-btn ${activeFilter === filter.id ? "active" : ""}`}
-              onClick={() => handleFilterClick(filter.id)}
+              key={item.id}
+              className={`gallery-nav-btn ${activeItem === index ? "active" : ""}`}
+              onClick={() => handleGalleryChange(index)}
             >
-              {filter.name} <span className="filter-count">({getCategoryCount(filter.id)})</span>
+              {item.title}
             </button>
           ))}
         </div>
 
-        <div className="gallery-grid">
-          {filteredImages.map((image) => (
-            <div
-              key={image.id}
-              className="gallery-item"
-              onClick={() => openLightbox(image)}
-              data-category={image.category}
-              data-id={image.id}
-            >
-              <img
-                src={image.src || "/placeholder.svg"}
-                alt={image.alt}
-                onError={(e) => {
-                  console.error(`Failed to load image: ${image.src}`)
-                  e.target.src = "/placeholder.svg"
-                }}
-              />
-              <div className="gallery-item-overlay">
-                <div className="overlay-content">
-                  <i className="fas fa-search-plus"></i>
-                  <p>{image.alt}</p>
-                </div>
+        {/* Main Gallery Content */}
+        <div className="gallery-content">
+          {/* Left Side - Main Image */}
+          <div className="gallery-main-image gallery-animate">
+            <img
+              src={currentGallery.mainImage || "/placeholder.svg"}
+              alt={currentGallery.title}
+              onClick={() => openLightbox(currentGallery.mainImage)}
+            />
+            <div className="image-overlay" onClick={() => openLightbox(currentGallery.mainImage)}>
+              <i className="fas fa-search-plus"></i>
+            </div>
+          </div>
+
+          {/* Center - Project Details */}
+          <div className="gallery-details gallery-animate">
+            <h3 className="project-title">{currentGallery.title}</h3>
+            <p className="project-description">{currentGallery.description}</p>
+
+            <div className="project-meta">
+              <div className="meta-item">
+                <span className="meta-label">LOCATION</span>
+                <span className="meta-value">{currentGallery.location}</span>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">ESTABLISHED</span>
+                <span className="meta-value">{currentGallery.established}</span>
               </div>
             </div>
+          </div>
+
+          {/* Right Side - Project Number and Gallery Grid */}
+          <div className="gallery-sidebar">
+            <div className="project-number gallery-animate">{currentGallery.number}</div>
+
+            {/* Image Mosaic */}
+            <div className="gallery-mosaic gallery-animate">
+              {currentGallery.images.map((image, index) => (
+                <div key={index} className={`mosaic-item mosaic-item-${index + 1}`} onClick={() => openLightbox(image)}>
+                  <img src={image || "/placeholder.svg"} alt={`${currentGallery.title} ${index + 1}`} />
+                  <div className="mosaic-overlay">
+                    <i className="fas fa-expand"></i>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Gallery Indicators */}
+        <div className="gallery-indicators gallery-animate">
+          {galleryItems.map((_, index) => (
+            <button
+              key={index}
+              className={`indicator ${activeItem === index ? "active" : ""}`}
+              onClick={() => handleGalleryChange(index)}
+            />
           ))}
         </div>
       </div>
 
+      {/* Lightbox */}
       {lightboxOpen && currentImage && (
         <div className="lightbox">
           <div className="lightbox-overlay" onClick={closeLightbox}></div>
@@ -189,17 +175,7 @@ const Gallery = () => {
             <button className="lightbox-close" onClick={closeLightbox}>
               <i className="fas fa-times"></i>
             </button>
-            <button className="lightbox-nav prev" onClick={() => navigateLightbox(-1)}>
-              <i className="fas fa-chevron-left"></i>
-            </button>
-            <img src={currentImage.src || "/placeholder.svg"} alt={currentImage.alt} />
-            <button className="lightbox-nav next" onClick={() => navigateLightbox(1)}>
-              <i className="fas fa-chevron-right"></i>
-            </button>
-            <p className="lightbox-caption">{currentImage.alt}</p>
-            <p className="lightbox-counter">
-              {currentIndex + 1} / {filteredImages.length}
-            </p>
+            <img src={currentImage || "/placeholder.svg"} alt="Gallery Image" />
           </div>
         </div>
       )}

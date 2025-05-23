@@ -7,7 +7,6 @@ const About = () => {
   const [isLandscape, setIsLandscape] = useState(false)
   const videoRef = useRef(null)
   const lastScrollY = useRef(0)
-  const lastReloadTime = useRef(0)
 
   // Check device orientation and size
   useEffect(() => {
@@ -26,7 +25,7 @@ const About = () => {
     return () => window.removeEventListener("resize", checkDevice)
   }, [])
 
-  // Enhanced video handling with frequent reloading
+  // Enhanced video handling with continuous dish-pulling focus
   useEffect(() => {
     if (!videoRef.current) return
 
@@ -57,40 +56,42 @@ const About = () => {
     // And when enough data is available
     video.addEventListener("canplay", playVideo)
 
-    // Frequent reload on scroll
+    // Define the key moments in the video
+    // Adjust these values based on your actual video timing for about.mp4
+    const dishPullingStart = 3.0 // When the man starts pulling dishes
+    const dishPullingEnd = 5.0 // When the action completes
+
+    // Simple time update handler for continuous looping
+    const handleTimeUpdate = () => {
+      // If we reach the end of the dish-pulling sequence, loop back
+      if (video.currentTime >= dishPullingEnd) {
+        // Loop back to the start of the dish-pulling sequence
+        video.currentTime = dishPullingStart
+      }
+    }
+
+    // Add timeupdate event listener
+    video.addEventListener("timeupdate", handleTimeUpdate)
+
+    // Handle scroll events for responsive behavior
     const handleScroll = () => {
-      const now = Date.now()
       const currentScrollY = window.scrollY
 
-      // Only reload if enough time has passed (1 second)
-      if (now - lastReloadTime.current > 1000 && isElementInViewport(video)) {
+      // If the video is in view and user scrolls significantly
+      if (isElementInViewport(video) && Math.abs(currentScrollY - lastScrollY.current) > 50) {
         // Determine scroll direction
         const scrollingDown = currentScrollY > lastScrollY.current
 
-        // Save current time
-        const currentTime = video.currentTime
-
-        // Determine new time based on scroll direction
-        let newTime
         if (scrollingDown) {
-          // When scrolling down, jump forward slightly
-          newTime = (currentTime + 0.5) % video.duration
+          // If scrolling down, continue playing normally
+          playVideo()
         } else {
-          // When scrolling up, jump backward slightly
-          newTime = (currentTime - 0.5 + video.duration) % video.duration
+          // If scrolling up, go back to the start of the dish-pulling
+          video.currentTime = dishPullingStart
+          playVideo()
         }
-
-        // Apply the new time
-        video.currentTime = newTime
-
-        // Ensure it's playing
-        playVideo()
-
-        // Update last reload time
-        lastReloadTime.current = now
       }
 
-      // Update last scroll position
       lastScrollY.current = currentScrollY
     }
 
@@ -101,7 +102,7 @@ const About = () => {
       scrollTimer = setTimeout(() => {
         handleScroll()
         scrollTimer = null
-      }, 50) // Reduced throttle to 50ms for more responsiveness
+      }, 100)
     }
 
     window.addEventListener("scroll", throttledScroll)
@@ -116,7 +117,9 @@ const About = () => {
     return () => {
       video.removeEventListener("loadedmetadata", playVideo)
       video.removeEventListener("canplay", playVideo)
+      video.removeEventListener("timeupdate", handleTimeUpdate)
       window.removeEventListener("scroll", throttledScroll)
+      document.removeEventListener("visibilitychange", playVideo)
     }
   }, [])
 
@@ -136,7 +139,6 @@ const About = () => {
         <video
           ref={videoRef}
           autoPlay
-          loop
           muted
           playsInline
           className="video-element"
@@ -156,7 +158,7 @@ const About = () => {
             visibility: "visible",
           }}
         >
-          <source src="/video/food.mp4" type="video/mp4" />
+          <source src="/video/about.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div

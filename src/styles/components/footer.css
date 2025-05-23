@@ -1,119 +1,76 @@
 /* Footer styles */
 .site-footer {
-  background-color: #111; /* Dark background to match the top of your website */
-  color: #fff;
-  padding: 4rem 0 2rem;
   font-family: "Poppins", sans-serif;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Main Footer Section */
+.footer-main {
+  background-color: #111;
+  padding: 4rem 0 2rem;
 }
 
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
+  width: 100%;
 }
 
-.footer-top {
+.footer-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: 1.5fr 3fr;
+  gap: 4rem;
   margin-bottom: 3rem;
 }
 
-/* Logo styles */
-.footer-logo {
+/* Brand Section with Logo */
+.footer-brand {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-/* Logo frame styles */
-.footer-logo-frame {
-  width: 110px;
-  height: 110px;
+.footer-brand-logo {
+  margin-bottom: 1.5rem;
+}
+
+.footer-brand-logo-img {
   border-radius: 50%;
-  background: linear-gradient(145deg, #e67e22, #d35400);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-}
-
-.footer-logo-frame::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  z-index: 1;
-}
-
-.footer-logo-frame::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 65%);
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.footer-logo-frame:hover::after {
-  opacity: 1;
-}
-
-.footer-logo-frame:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-}
-
-.footer-logo-img {
-  border-radius: 50%;
-  z-index: 3;
-  width: 106px !important;
-  height: 106px !important;
-  object-fit: contain !important;
+  object-fit: contain;
   background-color: #fff;
+  border: 2px solid #e67e22;
+  transition: transform 0.3s ease;
 }
 
-.footer-logo p {
-  font-family: "Poppins", sans-serif;
+.footer-brand-logo-img:hover {
+  transform: scale(1.05);
+}
+
+.footer-brand-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: #fff;
+}
+
+.footer-brand-subtitle {
+  font-size: 1rem;
   color: #aaa;
-  font-size: 0.9rem;
+  margin: 0;
 }
 
-.footer-links {
+.footer-columns {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
 }
 
 .footer-column h3 {
-  font-family: "Poppins", sans-serif;
-  font-size: 1.2rem;
-  margin-bottom: 1.25rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 0 1.5rem 0;
   color: #fff;
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-
-.footer-column h3::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 40px;
-  height: 2px;
-  background-color: #e67e22;
 }
 
 .footer-column ul {
@@ -123,35 +80,49 @@
 }
 
 .footer-column li {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.8rem;
   font-size: 0.95rem;
   color: #aaa;
+  line-height: 1.4;
+}
+
+/* Make Explore links appear on a single line */
+.footer-links li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Make Hours appear on a single line */
+.footer-hours li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .footer-column a {
-  font-family: "Poppins", sans-serif;
   color: #aaa;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
+  display: inline-block;
 }
 
 .footer-column a:hover {
   color: #e67e22;
 }
 
-.footer-bottom {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+.map-link {
+  margin-top: 0.5rem;
 }
 
-/* Minimalist Social Icons */
+.map-link a {
+  color: #e67e22;
+  font-weight: 500;
+}
+
 .social-icons {
   display: flex;
-  gap: 2rem; /* Increased gap for better spacing */
+  gap: 1.5rem;
 }
 
 .social-icon {
@@ -163,238 +134,120 @@
 }
 
 .social-icon-svg {
-  width: 18px; /* Consistent size for all icons */
-  height: 18px; /* Consistent size for all icons */
-  fill: #fff; /* White color to match dark background */
+  width: 18px;
+  height: 18px;
+  fill: #fff;
   transition: transform 0.3s ease, opacity 0.3s ease, fill 0.3s ease;
-  opacity: 0.8; /* Slightly transparent for better look */
+  opacity: 0.8;
 }
 
 .social-icon:hover .social-icon-svg {
   transform: scale(1.15);
   opacity: 1;
-  fill: #e67e22; /* Change to orange on hover to match your brand */
+  fill: #e67e22;
 }
 
-/* QR Code Popup */
-.qr-popup {
-  position: absolute;
-  bottom: 35px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #222;
-  border-radius: 8px;
-  padding: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-  z-index: 10;
-  opacity: 0;
-  animation: fadeIn 0.3s forwards;
-  border: 2px solid #e67e22;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 10px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-.qr-popup::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid #e67e22;
-}
-
-.qr-code {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.qr-image {
-  border: 1px solid #333;
-  border-radius: 4px;
-  background-color: #fff;
-}
-
-.qr-code span {
-  font-size: 0.75rem;
-  color: #ddd;
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
-  max-width: 100px;
-  font-weight: 500;
-}
-
-/* Mobile social icons */
-.social-icons-mobile {
-  display: none;
-  margin-top: 1.5rem;
-  gap: 1.5rem;
-}
-
-.social-icons-mobile .social-icon-svg {
-  width: 16px;
-  height: 16px;
 }
 
 .copyright {
-  font-family: "Poppins", sans-serif;
-  color: #aaa;
+  color: #777;
   font-size: 0.9rem;
+  margin: 0;
 }
 
-/* Enhanced Mobile Responsiveness */
+/* Responsive Styles */
 @media (max-width: 1200px) {
-  .site-footer {
-    padding: 3.5rem 0 2rem;
+  .footer-content {
+    gap: 3rem;
   }
-  
-  .footer-top {
-    gap: 1.75rem;
+
+  .footer-main {
+    padding: 3.5rem 0 2rem;
   }
 }
 
 @media (max-width: 992px) {
-  .site-footer {
-    padding: 3rem 0 1.5rem;
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
-  
-  .footer-top {
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+  .footer-brand {
+    text-align: center;
+    align-items: center;
   }
-  
-  .footer-column h3 {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
+
+  .footer-columns {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem 2rem;
   }
-  
-  .footer-column li {
-    margin-bottom: 0.6rem;
-    font-size: 0.9rem;
+
+  .footer-main {
+    padding: 3rem 0 2rem;
   }
 }
 
 @media (max-width: 768px) {
-  .footer-bottom {
-    flex-direction: column;
-    gap: 1.5rem;
+  .footer-main {
+    padding: 3rem 0 2rem;
   }
 
-  .footer-logo {
-    align-items: center;
-    text-align: center;
-  }
-
-  .footer-logo-frame {
-    width: 90px;
-    height: 90px;
-  }
-
-  .footer-logo-img {
-    width: 86px !important;
-    height: 86px !important;
-  }
-
-  .footer-column h3::after {
-    left: 50%;
-    transform: translateX(-50%);
+  .footer-columns {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 
   .footer-column {
     text-align: center;
   }
 
-  /* Show mobile social icons */
-  .social-icons-mobile {
-    display: flex;
+  .social-icons {
     justify-content: center;
   }
 
-  /* QR code adjustments for mobile */
-  .qr-popup {
-    display: none; /* Hide QR popups on mobile */
-  }
-  
-  .site-footer {
-    padding: 2.5rem 0 1.5rem;
-  }
-  
-  .footer-top {
-    margin-bottom: 2rem;
-  }
-  
-  .footer-column ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .footer-brand-logo {
+    margin-bottom: 1rem;
   }
 }
 
 @media (max-width: 576px) {
-  .footer-top {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .footer-main {
+    padding: 2.5rem 0 2rem;
   }
-  
-  .footer-links {
-    grid-template-columns: repeat(2, 1fr);
+
+  .footer-brand-title {
+    font-size: 1.6rem;
   }
-  
-  .site-footer {
-    padding: 2rem 0 1.5rem;
+
+  .footer-brand-logo-img {
+    width: 70px;
+    height: 70px;
   }
 }
 
 @media (max-width: 480px) {
-  .social-icon-svg {
-    width: 16px;
-    height: 16px;
+  .footer-brand-title {
+    font-size: 1.5rem;
   }
 
-  .social-icons {
-    gap: 1.75rem;
-  }
-
-  .social-icons-mobile {
-    gap: 1.5rem;
-  }
-  
-  .copyright {
-    font-size: 0.85rem;
-    text-align: center;
-  }
-  
-  .footer-logo p {
-    font-size: 0.85rem;
-    text-align: center;
+  .footer-brand-logo-img {
+    width: 65px;
+    height: 65px;
   }
 }
 
 @media (max-width: 375px) {
-  .footer-links {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .footer-brand-logo-img {
+    width: 60px;
+    height: 60px;
   }
-  
-  .social-icons {
-    gap: 1.5rem;
-  }
-  
-  .social-icons-mobile {
-    gap: 1.25rem;
+
+  .footer-brand-title {
+    font-size: 1.4rem;
   }
 }
 
@@ -402,10 +255,9 @@
 @media (hover: none) {
   .footer-column a {
     /* Increase touch target size */
-    display: inline-block;
     padding: 0.25rem 0;
   }
-  
+
   .social-icon {
     /* Increase touch target size */
     min-width: 44px;
