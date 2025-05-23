@@ -28,9 +28,11 @@ const Footer = () => {
                 <Image
                   src="/images/mekong-tonle.png"
                   alt="Mekong Tonle Restaurant"
-                  width={80}
-                  height={80}
+                  width={120}
+                  height={120}
                   className="footer-brand-logo-img"
+                  quality={100}
+                  priority
                 />
               </div>
               <h2 className="footer-brand-title">Tonle Mekong</h2>

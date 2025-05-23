@@ -24,7 +24,7 @@
   margin-bottom: 3rem;
 }
 
-/* Brand Section with Logo */
+/* Brand Section with Enhanced Logo */
 .footer-brand {
   display: flex;
   flex-direction: column;
@@ -32,32 +32,40 @@
 }
 
 .footer-brand-logo {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
 }
 
 .footer-brand-logo-img {
   border-radius: 50%;
   object-fit: contain;
   background-color: #fff;
-  border: 2px solid #e67e22;
-  transition: transform 0.3s ease;
+  border: 3px solid #e67e22;
+  transition: all 0.3s ease;
+  padding: 4px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  width: 110px !important;
+  height: 110px !important;
 }
 
 .footer-brand-logo-img:hover {
   transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
+  border-color: #d35400;
 }
 
 .footer-brand-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 600;
   margin: 0 0 0.5rem 0;
   color: #fff;
 }
 
 .footer-brand-subtitle {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #aaa;
   margin: 0;
+  font-weight: 400;
 }
 
 .footer-columns {
@@ -168,6 +176,11 @@
   .footer-main {
     padding: 3.5rem 0 2rem;
   }
+
+  .footer-brand-logo-img {
+    width: 100px !important;
+    height: 100px !important;
+  }
 }
 
 @media (max-width: 992px) {
@@ -188,6 +201,11 @@
 
   .footer-main {
     padding: 3rem 0 2rem;
+  }
+
+  .footer-brand-logo-img {
+    width: 95px !important;
+    height: 95px !important;
   }
 }
 
@@ -210,7 +228,16 @@
   }
 
   .footer-brand-logo {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-brand-logo-img {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .footer-brand-title {
+    font-size: 1.8rem;
   }
 }
 
@@ -224,8 +251,12 @@
   }
 
   .footer-brand-logo-img {
-    width: 70px;
-    height: 70px;
+    width: 85px !important;
+    height: 85px !important;
+  }
+
+  .footer-brand-subtitle {
+    font-size: 1rem;
   }
 }
 
@@ -235,19 +266,27 @@
   }
 
   .footer-brand-logo-img {
-    width: 65px;
-    height: 65px;
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .footer-brand-subtitle {
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 375px) {
   .footer-brand-logo-img {
-    width: 60px;
-    height: 60px;
+    width: 75px !important;
+    height: 75px !important;
   }
 
   .footer-brand-title {
     font-size: 1.4rem;
+  }
+
+  .footer-brand-subtitle {
+    font-size: 0.9rem;
   }
 }
 
@@ -265,5 +304,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  /* Disable hover effects for better performance */
+  .footer-brand-logo-img:hover {
+    transform: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .footer-brand-logo-img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
 }

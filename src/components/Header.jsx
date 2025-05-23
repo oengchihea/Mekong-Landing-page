@@ -86,10 +86,11 @@ const Header = () => {
             <Image
               src="/images/mekong-tonle.png"
               alt="Mekong Tonle Restaurant"
-              width={86}
-              height={86}
+              width={100}
+              height={100}
               className="logo-image"
               priority
+              quality={100}
             />
           </div>
         </div>
@@ -161,3 +162,4 @@ const Header = () => {
 }
 
 export default Header
+  
