@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
+import { Utensils, Wine, Bell, Leaf } from "lucide-react"
 
 const About = () => {
   const [isMobile, setIsMobile] = useState(false)
@@ -196,7 +197,7 @@ const About = () => {
           <div className="about-features">
             <div className="feature animate-on-scroll fade-up delay-500">
               <div className="feature-icon">
-                <i className="fas fa-utensils"></i>
+                <Utensils size={24} strokeWidth={2} />
               </div>
               <h3>Gourmet Cuisine</h3>
               <p>Expertly crafted dishes that blend traditional techniques with modern innovation</p>
@@ -204,7 +205,7 @@ const About = () => {
 
             <div className="feature animate-on-scroll fade-up delay-600">
               <div className="feature-icon">
-                <i className="fas fa-wine-glass-alt"></i>
+                <Wine size={24} strokeWidth={2} />
               </div>
               <h3>Fine Wines</h3>
               <p>Curated selection of wines from around the world to complement your meal</p>
@@ -212,7 +213,7 @@ const About = () => {
 
             <div className="feature animate-on-scroll fade-up delay-700">
               <div className="feature-icon">
-                <i className="fas fa-concierge-bell"></i>
+                <Bell size={24} strokeWidth={2} />
               </div>
               <h3>Impeccable Service</h3>
               <p>Attentive and personalized service to enhance your dining experience</p>
@@ -220,7 +221,7 @@ const About = () => {
 
             <div className="feature animate-on-scroll fade-up delay-800">
               <div className="feature-icon">
-                <i className="fas fa-leaf"></i>
+                <Leaf size={24} strokeWidth={2} />
               </div>
               <h3>Authentic Ingredients</h3>
               <p>Fresh, locally-sourced ingredients that capture the essence of Southeast Asian cuisine</p>

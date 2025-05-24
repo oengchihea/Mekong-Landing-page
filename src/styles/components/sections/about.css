@@ -130,8 +130,18 @@
   border-radius: 50%;
   background-color: rgba(230, 126, 34, 0.2);
   color: #e67e22;
-  font-size: 1.5rem;
   margin-bottom: 1rem;
+}
+
+/* New styles for Lucide icons */
+.feature-icon svg {
+  color: #e67e22;
+  stroke: #e67e22;
+  transition: transform 0.3s ease;
+}
+
+.feature:hover .feature-icon svg {
+  transform: scale(1.1);
 }
 
 .feature h3 {
@@ -228,15 +238,15 @@
   .about-container {
     gap: 3rem;
   }
-  
+
   .section-header h2 {
     font-size: 2.3rem;
   }
-  
+
   .about-section {
     padding: 4.5rem 0;
   }
-  
+
   .about-image {
     max-height: 400px;
   }
@@ -272,7 +282,7 @@
   .about-features {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .about-section {
     padding: 4rem 0;
     min-height: auto;
@@ -347,35 +357,35 @@
   .about-section {
     padding: 3.5rem 0;
   }
-  
+
   .about-features {
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
   }
-  
+
   .feature {
     padding: 1rem;
   }
-  
+
   .feature-icon {
     width: 45px;
     height: 45px;
     font-size: 1.1rem;
     margin-bottom: 0.75rem;
   }
-  
+
   .about-image {
     max-height: 300px;
   }
-  
+
   .secondary-image {
     max-height: 220px;
   }
-  
+
   .section-header h2 {
     font-size: 1.7rem;
   }
-  
+
   .about-text p {
     font-size: 0.9rem;
   }
@@ -423,26 +433,27 @@
   .about-image {
     max-height: 220px;
   }
-  
+
   .secondary-image {
     max-height: 180px;
   }
-  
+
   .feature {
     padding: 0.9rem;
   }
-  
+
   .feature-icon {
     width: 40px;
     height: 40px;
     font-size: 1rem;
+    margin-bottom: 0.5rem;
   }
-  
+
   .feature h3 {
     font-size: 1rem;
     margin-bottom: 0.5rem;
   }
-  
+
   .feature p {
     font-size: 0.8rem;
   }
@@ -494,7 +505,7 @@
     /* Make features more touch-friendly */
     padding: 1.25rem;
   }
-  
+
   .about-cta .btn {
     /* Increase touch target size */
     min-height: 44px;
@@ -502,7 +513,7 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   /* Reduce animation intensity for better performance on mobile */
   @keyframes float {
     0% {
